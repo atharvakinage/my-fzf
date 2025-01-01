@@ -10,6 +10,33 @@ else{
     Write-Output "Allright good to go"
 }
 
+$selection = & {Get-ChildItem -Directory -Recurse|
+    ForEach-Object { $_.FullName } |
+    & fzf --multi --height=80% --border=sharp `
+        --preview='tree -C {}' `
+        --preview-window='45%,border-sharp' `
+        --prompt='Dirs > ' `
+        --bind='del:execute(rm -ri {+})' `
+        --bind='ctrl-p:toggle-preview' `
+        --bind='ctrl-d:change-prompt(Dirs > )' `
+        --bind='ctrl-d:+reload(Get-ChildItem -Directory -Recurse | ForEach-Object { $_.FullName })' `
+        --bind='ctrl-d:+change-preview(tree -C {})' `
+        --bind='ctrl-d:+refresh-preview' `
+        --bind='ctrl-f:change-prompt(Files > )' `
+        --bind='ctrl-f:+reload(Get-ChildItem -File -Recurse | ForEach-Object { $_.FullName })' `
+        --bind='ctrl-f:+change-preview(cat {})' `
+        --bind='ctrl-f:+refresh-preview' `
+        --bind='ctrl-a:select-all' `
+        --bind='ctrl-x:deselect-all' `
+        --header='
+        CTRL-D : To display all directories 
+        CTRL-F : To display files 
+        CTRL-A : To select all
+        CTRL-X : To deselect all 
+        CTRL-P : To toggle preview 
+        ENTER to edit | DEL to delete
+        '
 
+}
 
 
