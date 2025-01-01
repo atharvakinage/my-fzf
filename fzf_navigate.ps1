@@ -43,7 +43,7 @@ $selection = & {Get-ChildItem -Recurse|
 
 # if directory then cd into it, if file then open using specified editor or by default vs code
 if (Test-Path -Path $selection -PathType Container){       
-    Set-Location $selection   
+    Set-Location -Path $selection   
 }
 elseif ($env:EDITOR) {
     & $env:EDITOR $selection
