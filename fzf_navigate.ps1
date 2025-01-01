@@ -10,7 +10,7 @@ else{
     Write-Output "Allright good to go"
 }
 
-$selection = & {Get-ChildItem -Directory -Recurse|
+$selection = & {Get-ChildItem -File -Recurse|
     ForEach-Object { $_.FullName } |
     & fzf --multi --height=80% --border=sharp `
         --preview='tree -C {}' `
@@ -19,11 +19,11 @@ $selection = & {Get-ChildItem -Directory -Recurse|
         --bind='del:execute(rm -ri {+})' `
         --bind='ctrl-p:toggle-preview' `
         --bind='ctrl-d:change-prompt(Dirs > )' `
-        --bind='ctrl-d:+reload(Get-ChildItem -Directory -Recurse | ForEach-Object { $_.FullName })' `
+        --bind='ctrl-d:execute(Get-ChildItem -Directory -Recurse| ForEach-Object { $_.FullName })' `
         --bind='ctrl-d:+change-preview(tree -C {})' `
         --bind='ctrl-d:+refresh-preview' `
         --bind='ctrl-f:change-prompt(Files > )' `
-        --bind='ctrl-f:+reload(Get-ChildItem -File -Recurse | ForEach-Object { $_.FullName })' `
+        --bind='ctrl-f:execute(Get-ChildItem -File -Recurse | ForEach-Object { $_.FullName })' `
         --bind='ctrl-f:+change-preview(cat {})' `
         --bind='ctrl-f:+refresh-preview' `
         --bind='ctrl-a:select-all' `
@@ -38,5 +38,24 @@ $selection = & {Get-ChildItem -Directory -Recurse|
         '
 
 }
+
+
+
+# if directory then cd into it, if file then open using specified editor or by default vs code
+if (Test-Path -Path $selection -PathType Container){       
+    Set-Location $selection   
+}
+elseif ($env:EDITOR) {
+    & $env:EDITOR $selection
+}
+else{
+    Write-Host "No editor defined - Opening with the vs code"
+    code $selection
+}
+
+
+# Container : eqivalent to -d in bash (directory) 
+# Leaf : equivalent to -f in bash (file)
+
 
 
