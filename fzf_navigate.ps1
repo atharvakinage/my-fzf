@@ -10,20 +10,23 @@ else{
     Write-Output "Allright good to go"
 }
 
-$selection = & {Get-ChildItem -Recurse|
+
+
+
+$selection = & {Get-ChildItem -Directory|
     ForEach-Object { $_.FullName } |
     & fzf --multi --height=80% --border=sharp `
-        --preview='tree -C {}' `
+        --preview='tree {}' `
         --preview-window='45%,border-sharp' `
         --prompt='Dirs > ' `
         --bind='del:execute(rm -ri {+})' `
         --bind='ctrl-p:toggle-preview' `
         --bind='ctrl-d:change-prompt(Dirs > )' `
-        --bind='ctrl-d:execute(Get-ChildItem -Directory -Recurse| ForEach-Object { $_.FullName })' `
-        --bind='ctrl-d:+change-preview(tree -C {})' `
+        --bind='ctrl-d:+reload:{}' `
+        --bind='ctrl-d:+change-preview(tree {})' `
         --bind='ctrl-d:+refresh-preview' `
         --bind='ctrl-f:change-prompt(Files > )' `
-        --bind='ctrl-f:execute(Get-ChildItem -File -Recurse | ForEach-Object { $_.FullName })' `
+        --bind='ctrl-f:+reload:{}' `
         --bind='ctrl-f:+change-preview(cat {})' `
         --bind='ctrl-f:+refresh-preview' `
         --bind='ctrl-a:select-all' `
@@ -36,8 +39,7 @@ $selection = & {Get-ChildItem -Recurse|
         CTRL-P : To toggle preview 
         ENTER to edit | DEL to delete
         '
-
-}
+    }
 
 
 
