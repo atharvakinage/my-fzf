@@ -10,7 +10,7 @@ else{
     Write-Output "Allright good to go"
 }
 
-$selection = & {Get-ChildItem -File -Recurse|
+$selection = & {Get-ChildItem -Recurse|
     ForEach-Object { $_.FullName } |
     & fzf --multi --height=80% --border=sharp `
         --preview='tree -C {}' `
