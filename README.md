@@ -1,2 +1,2 @@
 ## my-fzf ##
-An attempt to customize fzf for powershell
+Just attempt to create a file explorer using fzf
