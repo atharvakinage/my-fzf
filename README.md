@@ -1,5 +1,5 @@
 ## my-fzf ##
-An attempt to customize fzf for powershell  
+An attempt to create a file explorer using fzf
 
 To set an alias for running the script -  
 - Open powershell -> ```notepad $PROFILE``` -> ```Set-Alias <alias name> <path to the script>```  
