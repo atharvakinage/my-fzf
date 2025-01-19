@@ -7,11 +7,14 @@ To set an alias for running the script -
 
 
 To be fixed -
-- CTRL+D & CTRL+F key bindings
 - del key binding
 
 Functionality -
-- Displaying all files and directories and filtering them
-- Previewing the tree structure in the preview window
-- Selecting multiple files to open simultaneously by default in VS code or any defined editor
-- Toggle preview window
+- ```CTRL-D``` : To display subfolders in preview window
+- ```CTRL-F``` : To display all files in the folder
+- ```CTRL-E``` : To display content of files
+- ```CTRL-A``` : To select all
+- ```CTRL-X``` : To deselect all 
+- ```CTRL-P``` : To toggle preview 
+- ```enter``` to cd into a directory / open a file (default VS code)
+- To select multiple files simultaneously hit ```tab``` 
