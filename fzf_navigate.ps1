@@ -22,18 +22,19 @@ $selection = & {Get-ChildItem |
         --bind="del:execute()" `
         --bind='ctrl-p:toggle-preview' `
         --bind='ctrl-d:change-prompt(Dirs > )' `
-        --bind='ctrl-d:+reload(Get-ChildItem -Directory)' `
         --bind='ctrl-d:+change-preview(tree {})' `
         --bind='ctrl-d:+refresh-preview' `
-        --bind='ctrl-f:change-prompt(Files > )' `
-        --bind='ctrl-f:+reload(ls | % { $_.FullName })' `
+        --bind='ctrl-e:change-prompt(Files > )' `
+        --bind='ctrl-e:+change-preview(powershell -Command cat {})' `
+        --bind='ctrl-e:+refresh-preview' `
         --bind='ctrl-f:+change-preview(tree /f {})' `
         --bind='ctrl-f:+refresh-preview' `
         --bind='ctrl-a:select-all' `
         --bind='ctrl-x:deselect-all' `
         --header='
-        CTRL-D : To display all directories 
-        CTRL-F : To display files 
+        CTRL-D : To display subfolders in preview window
+        CTRL-F : To display all files in the folder
+        CTRL-E : To display content of files
         CTRL-A : To select all
         CTRL-X : To deselect all 
         CTRL-P : To toggle preview 
